@@ -12,7 +12,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Check file content
-        uses: mattbs42-meta/not-grep@d108c270001356757ef00fbb24fac10975a68710
-        with:
-          config-file: ./.github/test-scala-presence.toml
+
+      - name: Check for scala imports in Java
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          PATTERN='import scala.'
+          ROOT='src/main/java'
+
+          echo "Running exclude check"
+          echo "----------------------------------------------"
+          echo "Checking $ROOT/**/*.java for pattern:"
+          echo "$PATTERN"
+          echo "----------------------------------------------"
+
+          # If folder doesn't exist, treat as pass (nothing to check)
+          if [ ! -d "$ROOT" ]; then
+            echo "$ROOT does not exist; nothing to check."
+            exit 0
+          fi
+
+          # Collect files (stable order, safe for spaces)
+          mapfile -d '' files < <(find "$ROOT" -type f -name '*.java' -print0 | sort -z)
+
+          failed=0
+          for f in "${files[@]}"; do
+            if grep -Fq "$PATTERN" "$f"; then
+              echo "$f ............ FAIL"
+              echo
+              echo "Found '$PATTERN' in: $f"
+              failed=1
+              break
+            else
+              echo "$f ............ PASS"
+            fi
+          done
+
+          exit "$failed"
