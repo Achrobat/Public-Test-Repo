@@ -1,4 +1,4 @@
-name: Optimize images
+name: Test Scala Presence
 
 on:
   pull_request:
