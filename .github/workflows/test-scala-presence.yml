@@ -8,6 +8,6 @@ on:
     branches: [ master, main, release/** ]
 
 jobs:
-  optimize-images:
+  test-scala-presence:
     uses: Achrobat/Workflow-Repo/.github/workflows/test-scala-presence.yml@main
     secrets: inherit
