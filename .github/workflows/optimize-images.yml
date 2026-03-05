@@ -11,3 +11,7 @@ jobs:
   optimize-images:
     uses: Achrobat/Workflow-Repo/.github/workflows/optimize-images.yml@main
     secrets: inherit
+
+  test-scala-presence:
+    uses: Achrobat/Workflow-Repo/.github/workflows/test-scala-presence.yml@main
+    secrets: inherit
