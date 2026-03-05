@@ -3,13 +3,9 @@ name: Optimize images
 on:
   pull_request:
     branches: [ master, main, release/** ]
-    paths:
-      - "**/*.png"
 
   push:
     branches: [ master, main, release/** ]
-    paths:
-      - "**/*.png"
 
 jobs:
   optimize-images:
