@@ -1,4 +1,4 @@
-name: Optimize images
+name: Test Scala Presence
 
 on:
   pull_request:
@@ -8,6 +8,6 @@ on:
     branches: [ master, main, release/** ]
 
 jobs:
-  optimize-images:
-    uses: Achrobat/Workflow-Repo/.github/workflows/optimize-images.yml@main
+  test-scala-presence:
+    uses: Achrobat/Workflow-Repo/.github/workflows/test-scala-presence.yml@main
     secrets: inherit
